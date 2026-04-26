@@ -6,333 +6,70 @@
 <title>Suivi Citoyenneté Canada</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Roboto+Mono:wght@400;600&display=swap');
-
   :root {
-    --rouge: #D52B1E;
-    --bleu: #003366;
-    --blanc: #ffffff;
-    --gris: #f4f6f9;
-    --gris2: #e8ecf2;
-    --vert: #2ecc71;
-    --orange: #f39c12;
-    --texte: #1a2340;
+    --rouge: #D52B1E; --bleu: #003366; --blanc: #ffffff;
+    --gris: #f4f6f9; --gris2: #e8ecf2; --vert: #2ecc71;
+    --orange: #f39c12; --texte: #1a2340;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--gris);
-    color: var(--texte);
-    min-height: 100vh;
-  }
-
-  header {
-    background: linear-gradient(135deg, var(--rouge) 0%, #a01f15 100%);
-    color: white;
-    padding: 20px 16px 16px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(213,43,30,0.3);
-  }
-
-  header h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+  body { font-family: 'Nunito', sans-serif; background: var(--gris); color: var(--texte); min-height: 100vh; }
+  header { background: linear-gradient(135deg, var(--rouge) 0%, #a01f15 100%); color: white; padding: 20px 16px 16px; text-align: center; box-shadow: 0 4px 15px rgba(213,43,30,0.3); }
+  header h1 { font-size: 1.4rem; font-weight: 800; }
   header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
-
-  .tabs {
-    display: flex;
-    background: var(--bleu);
-    overflow-x: auto;
-  }
-
-  .tab {
-    flex: 1;
-    padding: 12px 8px;
-    text-align: center;
-    color: rgba(255,255,255,0.65);
-    font-size: 0.78rem;
-    font-weight: 700;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  .tab.active {
-    color: white;
-    border-bottom-color: var(--rouge);
-  }
-
+  .tabs { display: flex; background: var(--bleu); }
+  .tab { flex: 1; padding: 12px 8px; text-align: center; color: rgba(255,255,255,0.65); font-size: 0.78rem; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .tab.active { color: white; border-bottom-color: var(--rouge); }
   .page { display: none; padding: 16px; }
   .page.active { display: block; }
-
-  /* CARDS */
-  .card {
-    background: white;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 14px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  }
-
-  .card-titre {
-    font-size: 0.7rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--bleu);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  /* PERSONNE CARD */
-  .personne-card {
-    background: white;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    border-left: 5px solid var(--bleu);
-  }
-
-  .personne-nom {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--bleu);
-    margin-bottom: 10px;
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .stat-box {
-    background: var(--gris);
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-  }
-
-  .stat-val {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--bleu);
-  }
-
-  .stat-label {
-    font-size: 0.68rem;
-    color: #666;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .progress-bar {
-    background: var(--gris2);
-    border-radius: 50px;
-    height: 10px;
-    overflow: hidden;
-    margin: 8px 0 4px;
-  }
-
-  .progress-fill {
-    height: 100%;
-    border-radius: 50px;
-    background: linear-gradient(90deg, var(--bleu), var(--rouge));
-    transition: width 0.5s ease;
-  }
-
-  .progress-label {
-    font-size: 0.72rem;
-    color: #888;
-    text-align: right;
-  }
-
-  .date-estimee {
-    background: var(--gris);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 0.82rem;
-    color: var(--texte);
-    margin-top: 8px;
-  }
-
-  .alerte-mineur {
-    background: #fff8e1;
-    border: 1px solid #f39c12;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 0.78rem;
-    margin-top: 8px;
-    color: #8a5e00;
-  }
-
-  /* VOYAGES */
-  .voyage-item {
-    background: white;
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border-left: 4px solid var(--rouge);
-    position: relative;
-  }
-
-  .voyage-personne {
-    font-weight: 800;
-    font-size: 0.95rem;
-    color: var(--bleu);
-  }
-
-  .voyage-details {
-    font-size: 0.82rem;
-    color: #555;
-    margin-top: 4px;
-    line-height: 1.6;
-  }
-
-  .voyage-jours {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: var(--rouge);
-    color: white;
-    font-weight: 800;
-    font-size: 0.8rem;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-
-  .btn-supprimer {
-    background: none;
-    border: 1px solid #ffcccc;
-    color: var(--rouge);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    margin-top: 8px;
-    font-family: 'Nunito', sans-serif;
-  }
-
-  .btn-supprimer:hover { background: #fff0f0; }
-
-  /* FORMULAIRE AJOUT VOYAGE */
-  .form-groupe {
-    margin-bottom: 12px;
-  }
-
-  .form-groupe label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--bleu);
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  .form-groupe input, .form-groupe select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 2px solid var(--gris2);
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-family: 'Nunito', sans-serif;
-    color: var(--texte);
-    background: white;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .form-groupe input:focus, .form-groupe select:focus {
-    border-color: var(--bleu);
-  }
-
-  .btn-ajouter {
-    width: 100%;
-    background: linear-gradient(135deg, var(--bleu), #004999);
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 800;
-    font-family: 'Nunito', sans-serif;
-    cursor: pointer;
-    margin-top: 4px;
-    letter-spacing: 0.5px;
-  }
-
-  .btn-ajouter:hover { opacity: 0.9; }
-
-  /* INFO */
-  .info-box {
-    background: #e8f4fd;
-    border-left: 4px solid var(--bleu);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 0.82rem;
-    color: var(--bleu);
-    margin-bottom: 14px;
-    line-height: 1.6;
-  }
-
-  .section-titre {
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--bleu);
-    margin: 16px 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .maple { color: var(--rouge); font-size: 1.2rem; }
-
-  .empty-state {
-    text-align: center;
-    padding: 30px 20px;
-    color: #aaa;
-    font-size: 0.9rem;
-  }
-
-  .badge-ok { color: var(--vert); font-weight: 800; }
-  .badge-warn { color: var(--orange); font-weight: 800; }
+  .card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+  .card-titre { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--bleu); margin-bottom: 12px; }
+  .personne-card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border-left: 5px solid var(--bleu); }
+  .personne-nom { font-size: 1.1rem; font-weight: 800; color: var(--bleu); margin-bottom: 10px; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .stat-box { background: var(--gris); border-radius: 10px; padding: 10px; text-align: center; }
+  .stat-val { font-family: 'Roboto Mono', monospace; font-size: 1.4rem; font-weight: 600; color: var(--bleu); }
+  .stat-label { font-size: 0.68rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .progress-bar { background: var(--gris2); border-radius: 50px; height: 10px; overflow: hidden; margin: 8px 0 4px; }
+  .progress-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--bleu), var(--rouge)); transition: width 0.5s ease; }
+  .progress-label { font-size: 0.72rem; color: #888; text-align: right; }
+  .date-estimee { background: var(--gris); border-radius: 8px; padding: 8px 12px; font-size: 0.82rem; margin-top: 8px; }
+  .alerte-mineur { background: #fff8e1; border: 1px solid #f39c12; border-radius: 8px; padding: 8px 12px; font-size: 0.78rem; margin-top: 8px; color: #8a5e00; }
+  .voyage-item { background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid var(--rouge); position: relative; }
+  .voyage-personne { font-weight: 800; font-size: 0.95rem; color: var(--bleu); }
+  .voyage-details { font-size: 0.82rem; color: #555; margin-top: 4px; line-height: 1.6; }
+  .voyage-jours { position: absolute; top: 14px; right: 14px; background: var(--rouge); color: white; font-weight: 800; font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; }
+  .btn-supprimer { background: none; border: 1px solid #ffcccc; color: var(--rouge); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; cursor: pointer; margin-top: 8px; font-family: 'Nunito', sans-serif; }
+  .form-groupe { margin-bottom: 12px; }
+  .form-groupe label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--bleu); display: block; margin-bottom: 5px; }
+  .form-groupe input, .form-groupe select { width: 100%; padding: 10px 12px; border: 2px solid var(--gris2); border-radius: 10px; font-size: 0.9rem; font-family: 'Nunito', sans-serif; color: var(--texte); background: white; outline: none; }
+  .form-groupe input:focus, .form-groupe select:focus { border-color: var(--bleu); }
+  .btn-ajouter { width: 100%; background: linear-gradient(135deg, var(--bleu), #004999); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 800; font-family: 'Nunito', sans-serif; cursor: pointer; margin-top: 4px; }
+  .info-box { background: #e8f4fd; border-left: 4px solid var(--bleu); border-radius: 8px; padding: 12px; font-size: 0.82rem; color: var(--bleu); margin-bottom: 14px; line-height: 1.6; }
+  .empty-state { text-align: center; padding: 30px 20px; color: #aaa; font-size: 0.9rem; }
+  .section-titre { font-size: 1rem; font-weight: 800; color: var(--bleu); margin: 8px 0 10px; }
 </style>
 </head>
 <body>
-
 <header>
   <h1>🍁 Suivi Citoyenneté Canada</h1>
   <p id="dateHeader">Chargement...</p>
 </header>
-
 <div class="tabs">
-  <div class="tab active" onclick="showPage('tableau')">📊 Tableau</div>
-  <div class="tab" onclick="showPage('voyages')">✈️ Voyages</div>
-  <div class="tab" onclick="showPage('ajouter')">➕ Ajouter</div>
-  <div class="tab" onclick="showPage('infos')">ℹ️ Infos</div>
+  <div class="tab active" onclick="showPage('tableau', this)">📊 Tableau</div>
+  <div class="tab" onclick="showPage('voyages', this)">✈️ Voyages</div>
+  <div class="tab" onclick="showPage('ajouter', this)">➕ Ajouter</div>
+  <div class="tab" onclick="showPage('infos', this)">ℹ️ Infos</div>
 </div>
 
-<!-- PAGE TABLEAU DE BORD -->
 <div class="page active" id="page-tableau">
   <div id="personnes-container"></div>
 </div>
 
-<!-- PAGE VOYAGES -->
 <div class="page" id="page-voyages">
-  <div class="section-titre"><span class="maple">✈️</span> Voyages enregistrés</div>
+  <div class="section-titre">✈️ Voyages enregistrés</div>
   <div id="voyages-container"></div>
 </div>
 
-<!-- PAGE AJOUTER VOYAGE -->
 <div class="page" id="page-ajouter">
   <div class="card">
     <div class="card-titre">✈️ Nouveau voyage / absence</div>
@@ -365,20 +102,19 @@
   </div>
 </div>
 
-<!-- PAGE INFOS -->
 <div class="page" id="page-infos">
   <div class="card">
     <div class="card-titre">🍁 Règles IRCC</div>
     <div class="info-box">
-      📌 <strong>1 095 jours</strong> de présence physique au Canada sur les 5 dernières années avant la demande.<br><br>
-      📌 Le <strong>jour de départ</strong> et le <strong>jour de retour</strong> comptent comme jours de présence au Canada.<br><br>
+      📌 <strong>1 095 jours</strong> de présence physique au Canada sur les 5 dernières années.<br><br>
+      📌 Le <strong>jour de départ</strong> et le <strong>jour de retour</strong> comptent comme présence au Canada.<br><br>
       📌 Seuls les jours <strong>entre</strong> le départ et le retour sont comptés comme absence.<br><br>
       📌 Date d'arrivée de la famille : <strong>21 juin 2024</strong>
     </div>
   </div>
   <div class="card">
-    <div class="card-titre">👨‍👩‍👧‍👦 Membres de la famille</div>
-    <div style="font-size:0.88rem; line-height:2;">
+    <div class="card-titre">👨‍👩‍👧‍👦 Membres</div>
+    <div style="font-size:0.88rem; line-height:2.2;">
       👤 <strong>Annis</strong> — adulte<br>
       👤 <strong>Radia</strong> — adulte<br>
       👧 <strong>Narimane</strong> — née le 22 avril 2010<br>
@@ -390,7 +126,6 @@
 <script>
 const ARRIVEE = new Date('2024-06-21');
 const OBJECTIF = 1095;
-
 const MEMBRES = [
   { nom: 'Annis', naissance: null },
   { nom: 'Radia', naissance: null },
@@ -398,16 +133,19 @@ const MEMBRES = [
   { nom: 'Yacine', naissance: new Date('2012-10-24') }
 ];
 
-// Données voyages initiales
-let voyages = JSON.parse(localStorage.getItem('voyages') || 'null') || [
-  { personne: 'Radia', depart: '2025-08-05', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' },
-  { personne: 'Narimane', depart: '2025-08-05', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' },
-  { personne: 'Yacine', depart: '2025-08-05', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' },
-  { personne: 'Annis', depart: '2025-08-17', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' }
-];
+// Charger voyages depuis localStorage
+let voyages = [];
+try {
+  voyages = JSON.parse(localStorage.getItem('voyagesCAN')) || [
+    { personne: 'Radia', depart: '2025-08-05', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' },
+    { personne: 'Narimane', depart: '2025-08-05', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' },
+    { personne: 'Yacine', depart: '2025-08-05', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' },
+    { personne: 'Annis', depart: '2025-08-17', retour: '2025-09-04', pays: 'Algérie', raison: 'Vacances' }
+  ];
+} catch(e) { voyages = []; }
 
 function sauvegarder() {
-  localStorage.setItem('voyages', JSON.stringify(voyages));
+  try { localStorage.setItem('voyagesCAN', JSON.stringify(voyages)); } catch(e) {}
 }
 
 function joursAbsence(depart, retour) {
@@ -416,26 +154,35 @@ function joursAbsence(depart, retour) {
   return Math.max(0, Math.round((r - d) / 86400000) - 1);
 }
 
+function today() {
+  const d = new Date();
+  d.setHours(0,0,0,0);
+  return d;
+}
+
+function joursDepuisArrivee() {
+  return Math.round((today() - ARRIVEE) / 86400000);
+}
+
 function joursPresence(nom) {
-  const today = new Date();
-  const totalJours = Math.round((today - ARRIVEE) / 86400000);
+  const total = joursDepuisArrivee();
   const absences = voyages
     .filter(v => v.personne === nom)
     .reduce((sum, v) => sum + joursAbsence(v.depart, v.retour), 0);
-  return totalJours - absences;
+  return Math.max(0, total - absences);
 }
 
 function dateEstimee(presence) {
   const restants = Math.max(0, OBJECTIF - presence);
-  const date = new Date();
-  date.setDate(date.getDate() + restants);
-  return date.toLocaleDateString('fr-CA');
+  const d = new Date(today());
+  d.setDate(d.getDate() + restants);
+  return d.toLocaleDateString('fr-CA');
 }
 
 function afficherTableau() {
   const container = document.getElementById('personnes-container');
   container.innerHTML = '';
-  const today = new Date();
+  const now = today();
 
   MEMBRES.forEach(m => {
     const presence = joursPresence(m.nom);
@@ -447,12 +194,13 @@ function afficherTableau() {
     if (m.naissance) {
       const dix8 = new Date(m.naissance);
       dix8.setFullYear(dix8.getFullYear() + 18);
-      const joursAvant18 = Math.round((dix8 - today) / 86400000);
+      const joursAvant18 = Math.round((dix8 - now) / 86400000);
       const marge = joursAvant18 - restants;
-      const classe = marge > 180 ? 'badge-ok' : 'badge-warn';
+      const couleur = marge > 180 ? '#2ecc71' : '#f39c12';
+      const icone = marge > 180 ? '✅' : '⚠️';
       alerteMineur = `<div class="alerte-mineur">
         🎂 18 ans: ${dix8.toLocaleDateString('fr-CA')}<br>
-        Marge: <span class="${classe}">${marge} jours</span> ${marge > 180 ? '✅ Zone confortable' : '⚠️ Attention'}
+        Marge: <strong style="color:${couleur}">${marge} jours ${icone}</strong>
       </div>`;
     }
 
@@ -469,14 +217,11 @@ function afficherTableau() {
             <div class="stat-label">Jours restants</div>
           </div>
         </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width:${pct}%"></div>
-        </div>
-        <div class="progress-label">${pct}% complété (${presence}/${OBJECTIF})</div>
-        <div class="date-estimee">📅 Date estimée d'atteinte: <strong>${est}</strong></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="progress-label">${pct}% complété (${presence} / ${OBJECTIF})</div>
+        <div class="date-estimee">📅 Date estimée: <strong>${est}</strong></div>
         ${alerteMineur}
-      </div>
-    `;
+      </div>`;
   });
 }
 
@@ -488,17 +233,15 @@ function afficherVoyages() {
   }
   container.innerHTML = voyages.map((v, i) => {
     const jours = joursAbsence(v.depart, v.retour);
-    return `
-      <div class="voyage-item">
-        <div class="voyage-personne">👤 ${v.personne}</div>
-        <div class="voyage-jours">${jours}j abs.</div>
-        <div class="voyage-details">
-          📍 ${v.pays} — ${v.raison}<br>
-          🛫 ${new Date(v.depart).toLocaleDateString('fr-CA')} → 🛬 ${new Date(v.retour).toLocaleDateString('fr-CA')}
-        </div>
-        <button class="btn-supprimer" onclick="supprimerVoyage(${i})">🗑️ Supprimer</button>
+    return `<div class="voyage-item">
+      <div class="voyage-personne">👤 ${v.personne}</div>
+      <div class="voyage-jours">${jours}j abs.</div>
+      <div class="voyage-details">
+        📍 ${v.pays} — ${v.raison}<br>
+        🛫 ${new Date(v.depart).toLocaleDateString('fr-CA')} → 🛬 ${new Date(v.retour).toLocaleDateString('fr-CA')}
       </div>
-    `;
+      <button class="btn-supprimer" onclick="supprimerVoyage(${i})">🗑️ Supprimer</button>
+    </div>`;
   }).join('');
 }
 
@@ -517,44 +260,31 @@ function ajouterVoyage() {
   const retour = document.getElementById('f-retour').value;
   const pays = document.getElementById('f-pays').value.trim();
   const raison = document.getElementById('f-raison').value.trim();
-
-  if (!depart || !retour || !pays) {
-    alert('Veuillez remplir tous les champs obligatoires.');
-    return;
-  }
-  if (new Date(retour) <= new Date(depart)) {
-    alert('La date de retour doit être après la date de départ.');
-    return;
-  }
-
+  if (!depart || !retour || !pays) { alert('Veuillez remplir tous les champs.'); return; }
+  if (new Date(retour) <= new Date(depart)) { alert('Date de retour doit être après le départ.'); return; }
   voyages.push({ personne, depart, retour, pays, raison: raison || 'Non spécifié' });
   sauvegarder();
-  afficherVoyages();
-  afficherTableau();
-
   document.getElementById('f-depart').value = '';
   document.getElementById('f-retour').value = '';
   document.getElementById('f-pays').value = '';
   document.getElementById('f-raison').value = '';
-
-  alert('✅ Voyage ajouté avec succès !');
-  showPage('voyages');
+  alert('✅ Voyage ajouté !');
+  showPage('voyages', document.querySelectorAll('.tab')[1]);
 }
 
-function showPage(nom) {
+function showPage(nom, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + nom).classList.add('active');
-  event.target.classList.add('active');
-
+  if (el) el.classList.add('active');
   if (nom === 'voyages') afficherVoyages();
   if (nom === 'tableau') afficherTableau();
 }
 
 function init() {
-  const today = new Date();
+  const now = new Date();
   document.getElementById('dateHeader').textContent =
-    '📅 ' + today.toLocaleDateString('fr-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    '📅 ' + now.toLocaleDateString('fr-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   afficherTableau();
 }
 
